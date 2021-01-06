@@ -1,4 +1,4 @@
-[html版](https://isakari.github.io/comp_mech/)
+[html版](https://isakari.github.io/mech_synthesis/)
 
 ## 段付き棒のパラメータ最適化
 * [最適設計問題の定式化](param_formulation/README.md)
