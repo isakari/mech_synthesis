@@ -1,14 +1,16 @@
 [html版](https://isakari.github.io/mech_synthesis/)
 
 ## 段付き棒のパラメータ最適化
-* [最適設計問題の定式化](param_formulation/README.md)
-* Lagrange の未定乗数法
+* 最適設計問題の定式化 ([講義メモ](./01memo.pdf), [スライド](./01slide.pdf))
+* Lagrange の未定乗数と KKT 条件
+* 最適性の条件
 * 感度解析
   * 直接微分法
   * 随伴変数法
-* 最適性の条件
-* 最適化問題の数値解法
-
+* 最適設計問題の数値解法
+  * 最急降下法
+  * 準 Newton 法
+  
 ## 弾性論と有限要素法の基礎
 * 2次元静弾性力学
 * 有限要素法の基礎
