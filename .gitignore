@@ -1,2 +1,11 @@
 *~
 *annotated*
+
+*.gif
+fort.*
+
+.DS_Store
+
+a.out
+*.o
+*.mod
