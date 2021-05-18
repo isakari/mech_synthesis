@@ -1,0 +1,51 @@
+/* 材料定数の設定 */
+//Young's modulus 
+real E = 50.0*10.0^9; //Pa=50GPa
+//Poisson’s ratio
+real nu = 0.35;
+ 
+// Lame coefficients
+real lambda = E*nu/((1+nu)*(1-2*nu));
+real mu = E/(2*(1+nu));
+ 
+// 平面応力状態
+lambda=2*lambda*mu/(lambda+2*mu);
+
+/* 荷重を設定 */
+func t1 = 0.0;
+func t2 = -500.0*1000.0; //下向きに500kN
+
+
+/* 領域形状を設定 */
+border a1(t = 0.05, 0) { x=0; y=t; label=1; };
+border a2(t = 0, 0.07) { x=t; y=0; label=2; };
+border a3(t = 0.07, 0.10) { x=t; y=0; label=3; };
+border a4(t = 0, 0.05) { x=0.1; y=t; label=4; };
+border a5(t = 0.1, 0) { x=t; y=0.05; label=5; };
+
+/* 有限要素分割, 有限要素空間, 変数の定義 */
+int n=2;
+mesh Sh;
+Sh = buildmesh(a1(5*n) + a2(7*n) + a3(3*n) + a4(5*n) + a5(10*n));
+//plot(Sh,wait=1);
+fespace Vh1(Sh,[P1,P1]);
+Vh1 [u1, u2]; // 変位
+Vh1 [v1, v2]; // 変位（試験関数）
+
+/* 弱形式を定義 */
+problem elasticity([u1,u2],[v1,v2]) =
+        int2d(Sh)(
+        (lambda+2*mu)*dx(v1)*dx(u1)+lambda*dx(v1)*dy(u2)
+        +lambda*dy(v2)*dx(u1)+(lambda+2*mu)*dy(v2)*dy(u2)
+        +mu*(dy(v1)+dx(v2))*(dy(u1)+dx(u2)))
+        -int1d(Sh,4)(v1*t1+v2*t2)
+        +on(1,u1=0,u2=0);
+
+/* 有限要素解析を実行*/
+elasticity;
+
+/* 変位を1000倍して表示*/
+real scale=1000.0;
+mesh Th;
+Th = movemesh (Sh,[x+scale*u1,y+scale*u2]);
+plot(Th,wait=1);
