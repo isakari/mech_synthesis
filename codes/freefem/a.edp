@@ -38,7 +38,7 @@ problem elasticity([u1,u2],[v1,v2]) =
         (lambda+2*mu)*dx(v1)*dx(u1)+lambda*dx(v1)*dy(u2)
         +lambda*dy(v2)*dx(u1)+(lambda+2*mu)*dy(v2)*dy(u2)
         +mu*(dy(v1)+dx(v2))*(dy(u1)+dx(u2)))
-        -int1d(Sh,4)(v1*t1+v2*t2)
+        -int1d(Sh,3)(v1*t1+v2*t2)
         +on(1,u1=0,u2=0);
 
 /* 有限要素解析を実行*/
